@@ -21,7 +21,7 @@ class ClientProvider extends ChangeNotifier{
 
   List<bool> get appoints => _appoints;
 
-  void UpdateAppoints(int yy, int mm) async{
+  void  UpdateAppoints(int yy, int mm) async{
     List<StandardUser> books = await sqliteController.getMonthdatas(mm < 10 ? "0" + mm.toString() : mm.toString(), yy.toString());
     //List<StandardUser> books = await sqliteController.getLists();
     print("Count ->" + books.length.toString());
@@ -29,7 +29,7 @@ class ClientProvider extends ChangeNotifier{
     initdatas();
     for(int i = 0; i < books.length; i ++){
       List<String> split = books[i].date.split('.');
-      int day = int.parse(split[1]);
+      int day = int.parse(split[0]);
       print(day.toString());
       _appoints[day] = true;
     }

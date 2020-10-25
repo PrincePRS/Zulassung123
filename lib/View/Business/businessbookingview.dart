@@ -60,7 +60,7 @@ class _BusinessBookingViewState extends State<BusinessBookingView> {
                               return CustomerItem(
                                 context,
                                 appoints[idx].name,
-                                bookdate: ChangeDateFormat(appoints[idx].date) ,
+                                bookdate: appoints[idx].date,
                                 annotation: appoints[idx].annotation,
                                 isDel: true,
                                 onTap: (){

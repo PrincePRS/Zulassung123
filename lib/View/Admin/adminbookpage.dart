@@ -207,7 +207,7 @@ class _AdminBookPageState extends State<AdminBookPage> {
                                 for(int i = 0; i < datas.length; i ++){
                                   if(datas[i].name == null || datas[i].name == '') continue;
                                   List<String> split = datas[i].date.split('.');
-                                  booked[int.parse(split[1])] = true;
+                                  booked[int.parse(split[0])] = true;
                                 }
                               }
                               return Container(
@@ -381,7 +381,7 @@ class _AdminBookPageState extends State<AdminBookPage> {
                               return CustomerItem(
                                 context,
                                 datas[idx].name,
-                                bookdate: ChangeDateFormat(datas[idx].date) ,
+                                bookdate: datas[idx].date,
                                 annotation: datas[idx].annotation,
                                 onTap: (){
                                   Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailInfo(datas[idx].name, datas[idx].email, datas[idx].telephone)));
@@ -421,7 +421,6 @@ class _AdminBookPageState extends State<AdminBookPage> {
     for(int i = 0; i < _users.length; i ++){
       print("+++ " + _users[i].companyname);
     }
-  print("uuuuuuuuuuuuuuuuuuuuuuuuu");
     pdf.addPage(
 
         pw.MultiPage(
@@ -438,7 +437,7 @@ class _AdminBookPageState extends State<AdminBookPage> {
               pw.Table.fromTextArray(context: context, data: <List<String>>[
                 <String>['No','Unternehmen', 'Ansprechpartner', 'Straße', 'Ort',	'PLZ', 'E-Mail', 'Telefonnummer', 'Anmerkung'],
                 //...bills.map((item) => [uniqueList.indexOf(item), item.recordDate, item.name, displayNumberFormat(item.cost.toStringAsFixed(2)) , item.currency.substring(3), item.meanOfPayment, item.category, item.location]),
-                ..._users.asMap().entries.map((item) => [(item.key + 1).toString(), item.value.email == null ? '' : item.value.companyname, item.value.email == null ? item.value.companyname : item.value.contactpartner, item.value.email == null ? '' : item.value.streetname ,  item.value.email == null ? '' : item.value.place, item.value.email == null ? '' : item.value.postcode, item.value.email == null ? '' : item.value.email, item.value.telephone, appoints[item.key].annotation]),
+                ..._users.asMap().entries.map((item) => [(item.key + 1).toString(), item.value.email == null ? '' : item.value.companyname, item.value.email == null ? '' : item.value.contactpartner, item.value.email == null ? '' : item.value.streetname ,  item.value.email == null ? '' : item.value.place, item.value.email == null ? '' : item.value.postcode, item.value.email == null ? '' : item.value.email, item.value.telephone, appoints[item.key].annotation]),
                 // <String>['', '', 'H', 'H', '', 'H']
               ], headerStyle: pw.TextStyle(fontSize: 6, fontWeight: pw.FontWeight.bold), cellStyle:pw.TextStyle(fontSize: 6)),
             ]

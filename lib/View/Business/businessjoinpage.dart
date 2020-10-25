@@ -71,11 +71,19 @@ class _BusinessJoinState extends State<BusinessJoin> {
       return;
     }
     try{
+
+      int preUser = await firebaseController.GetUserFromPhone(telephoneController.text);
+      print(preUser.toString() + "|" + telephoneController.text);
+      if(preUser > 0){
+        _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text('PhoneNumber Duplicated')));
+        setState(() {isLoading = false;});
+        return;
+      }
+
       final AuthResult auth =  await FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailController.text, password: passwordController.text);
       FirebaseUser user = auth.user;
 
       formstate.save();
-
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) async{
 
 
@@ -98,7 +106,7 @@ class _BusinessJoinState extends State<BusinessJoin> {
        // print(authInfo.toString());
         Provider.of<AuthProvider>(context, listen: false).UpdateUser(userdata);
         setState(() {isLoading = false;});
-        Navigator.push(context, MaterialPageRoute(builder: (context) => BusinessBookPage(userdata)));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BusinessBookPage(userdata)));
       });
     }catch(e){
       setState(() {isLoading = false;});
@@ -130,6 +138,7 @@ class _BusinessJoinState extends State<BusinessJoin> {
         Container(
       child: SafeArea(
         child: Scaffold(
+          key: _scaffoldKey,
           backgroundColor: Colors.transparent,
           appBar: BackgroundAppBar(context,
             centerW: Container(

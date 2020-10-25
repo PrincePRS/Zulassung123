@@ -97,7 +97,6 @@ class FirebaseController {
   // get user datas (for confirmation)
   Future<List<AppointModel>> GetAppointFutureData(String mth, String yrs) async{
     CollectionReference  tb_instance = _db.collection(appointcollection);
-    Query query = tb_instance.where("email", arrayContains: mth).where("email", arrayContains: yrs);
 
     QuerySnapshot querySnapshot = await tb_instance.getDocuments();
     List<AppointModel> appoints = List<AppointModel>();
@@ -131,6 +130,15 @@ class FirebaseController {
     return users;
   }
 
+  Future<int> GetUserFromPhone(String phone) async{
+    CollectionReference  tb_instance = _db.collection(usercollection);
+    Query query = tb_instance.where("telephone", isEqualTo: phone);
+
+    QuerySnapshot querySnapshot = await query.getDocuments();
+    return querySnapshot.documents.length;
+
+  }
+
   // get user datas (for confirmation)
   Future<List<UserModel>> GetAllUsers() async{
     CollectionReference  tb_instance = _db.collection(usercollection);
@@ -146,14 +154,14 @@ class FirebaseController {
 // get stream data each date
   // params. date string.
 
-  Stream<List<AppointModel>> EachDateAppointState(String datestring) {
-    CollectionReference  tb_instance = _db.collection(appointcollection);
-    Query query = tb_instance.where("date", isEqualTo: datestring);
-
-    return query.snapshots().map((snapshot) => snapshot.documents.map(
-            (doc) => AppointModel.fromJson(doc.data, doc.documentID)
-    ).toList());
-  }
+  // Stream<List<AppointModel>> EachDateAppointState(String datestring) {
+  //   CollectionReference  tb_instance = _db.collection(appointcollection);
+  //   Query query = tb_instance.where("date", isEqualTo: datestring);
+  //
+  //   return query.snapshots().map((snapshot) => snapshot.documents.map(
+  //           (doc) => AppointModel.fromJson(doc.data, doc.documentID)
+  //   ).toList());
+  // }
 
   Stream<List<DateModel>> GetAppointDate() {
     CollectionReference  tb_instance = _db.collection("appointdatetb");
@@ -180,7 +188,7 @@ class FirebaseController {
 
   Future<List<AppointModel>> GetFutureAppointsDataFromDate (String dy, String mth, String yrs) async{
     CollectionReference  tb_instance = _db.collection(appointcollection);
-    Query query = tb_instance.where("date", isEqualTo: mth+"."+dy+"." + yrs);
+    Query query = tb_instance.where("date", isEqualTo: dy+"."+mth+"." + yrs);
     QuerySnapshot querySnapshot = await query.getDocuments();
     List<AppointModel> appointList = List<AppointModel>();
     for(int i = 0; i < querySnapshot.documents.length; i ++){
@@ -191,7 +199,7 @@ class FirebaseController {
 
   Stream<List<AppointModel>> GetAppointsDataFromDate(String dy, String mth, String yrs) {
     CollectionReference  tb_instance = _db.collection(appointcollection);
-    Query query = tb_instance.where("date", isEqualTo: mth+"."+dy+"." + yrs);
+    Query query = tb_instance.where("date", isEqualTo: dy+"."+mth+"." + yrs);
     return query.snapshots().map((snapshot) => snapshot.documents.map(
             (doc) {
           return AppointModel.fromJson(doc.data, doc.documentID);
@@ -205,8 +213,8 @@ class FirebaseController {
 
     return tb_instance.snapshots().map((snapshot) => snapshot.documents.map(
             (doc) {
-          var datestr = doc.data['date'].toString();
-          if(datestr.indexOf(mth) == 0 && datestr.contains(yrs))
+          var datestr = doc.data['date'].toString().substring(3);
+          if(datestr == mth + "." + yrs)
             return AppointModel.fromJson(doc.data, doc.documentID);
           return new AppointModel();
         }
@@ -219,8 +227,8 @@ class FirebaseController {
 
     return query.snapshots().map((snapshot) => snapshot.documents.map(
             (doc) {
-          var datestr = doc.data['date'].toString();
-          if(datestr.indexOf(mth) == 0 && datestr.contains(yrs))
+          var datestr = doc.data['date'].toString().substring(3);
+          if(datestr == mth + "." + yrs)
             return AppointModel.fromJson(doc.data, doc.documentID);
           return new AppointModel();
         }

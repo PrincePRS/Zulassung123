@@ -9,24 +9,17 @@ import '../Components/common/customappbar.dart';
 import '../Components/common/customtexts.dart';
 import 'clientbookpage.dart';
 
-// Page Title: MEINE BUCHUNGEN
-// Trans: MY BOOKINGS
-
 class MyBooking extends StatefulWidget {
   @override
   _MyBookingState createState() => _MyBookingState();
 }
 
 class _MyBookingState extends State<MyBooking> {
-  List<String> customNameLists = <String>["ABCsss", "PPP"];
-  List<String> customDatenLists = <String>["02.03.2020", "12.04.2020"];
-  List<String> customAnnotationLists = <String>["Keine Anmerkung vorhanden", "Keine Anmerkung"];
   List<StandardUser> appoints = [];
 
   getAllList() async{
     List<StandardUser> temp = await sqliteController.getLists();
     setState(() {
-      print("**" + temp.length.toString());
       appoints = temp;
     });
   }
@@ -69,7 +62,7 @@ class _MyBookingState extends State<MyBooking> {
                           return CustomerItem(
                             context,
                             appoints[idx].name,
-                            bookdate: ChangeDateFormat(appoints[idx].date) ,
+                            bookdate: appoints[idx].date ,
                             annotation: appoints[idx].annotation,
                             onTap: () {
                               openMessageDialog(context, appoints[idx].telephone);

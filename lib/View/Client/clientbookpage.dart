@@ -35,7 +35,7 @@ class _ClientBookPageState extends State<ClientBookPage> {
     if(dd == -1) return "*";
     String m = mm < 10 ? "0" + mm.toString() : mm.toString();
     String d = dd < 10 ? "0" + dd.toString() : dd.toString();
-    return m + "." + d + "." + yy.toString();
+    return d + "." + m + "." + yy.toString();
   }
 
   SetCalendar(){
@@ -332,6 +332,7 @@ class _ClientBookPageState extends State<ClientBookPage> {
 }
 
 void openMessageDialog(BuildContext context, String date) {
+  print(date.toString());
   Size sz = MediaQuery.of(context).size;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController _nameController = TextEditingController();
@@ -400,7 +401,7 @@ void openMessageDialog(BuildContext context, String date) {
                             await sqliteController.insertData(data);
                             List<String> split = date.split('.');
                             print(split[2] + "  |  " + split[0]);
-                            Provider.of<ClientProvider>(context, listen: false).UpdateAppoints(int.parse(split[2]), int.parse(split[0]));
+                            Provider.of<ClientProvider>(context, listen: false).UpdateAppoints(int.parse(split[2]), int.parse(split[1]));
                             Navigator.pop(c);
                           }catch(e){
 

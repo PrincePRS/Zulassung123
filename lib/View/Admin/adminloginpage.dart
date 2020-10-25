@@ -98,7 +98,7 @@ class _AdminLoginPageState extends State<AdminLoginPage> {
                                       setState(() {
                                         isLoading = false;
                                       });
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => AdminBookPage()));
+                                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AdminBookPage()));
                                     }else{
                                       Provider.of<AuthProvider>(context, listen: false).UpdateRole(1);
                                       AuthInfo authInfo = new AuthInfo(id: 1, role: 1, email: emailController.text, telephone: telephoneController.text, isRegister: 1);
@@ -108,7 +108,7 @@ class _AdminLoginPageState extends State<AdminLoginPage> {
                                       setState(() {
                                         isLoading = false;
                                       });
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => BusinessBookPage(admins[0])));
+                                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BusinessBookPage(admins[0])));
                                     }
                                   }catch(e){
 

@@ -89,7 +89,7 @@ class SqliteController {
     final List<Map<String, dynamic>> maps = await db.query(
         '$standardtb',
         where: "date LIKE ?",
-        whereArgs: ['$mth%$yrs']
+        whereArgs: ['%$mth.$yrs']
     ); //rawDelete();
 
     return List.generate(maps.length, (i) {

@@ -92,7 +92,6 @@ class _BusinessLoginPageState extends State<BusinessLoginPage> {
                                   final AuthResult auth =  await FirebaseAuth.instance.signInWithEmailAndPassword(email: emailController.text, password: passwordController.text);
                                   FirebaseUser user = auth.user;
                                   formstate.save();
-
                                   Provider.of<AuthProvider>(context, listen: false).UpdateRole(1);
                                   AuthInfo authInfo = new AuthInfo(id: 1, role: 1, email: emailController.text, telephone: passwordController.text, isRegister: 1);
                                   await sqliteController.updateAuthInfo(authInfo);

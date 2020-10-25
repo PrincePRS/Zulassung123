@@ -36,18 +36,13 @@ class _BusinessBookPageState extends State<BusinessBookPage> {
     if(dd == -1) return "*";
     String m = mm < 10 ? "0" + mm.toString() : mm.toString();
     String d = dd < 10 ? "0" + dd.toString() : dd.toString();
-    return m + "." + d + "." + yy.toString();
+    return d + "." + m + "." + yy.toString();
   }
 
   SetCalendar(){
-    print(month.toString());
-    print(year.toString());
     int numberofdays = dateUtility.daysInMonth(month, year);
-    print("--->"  + numberofdays.toString());
     int weekdayOfFirstDay = DateTime(year, month, 1).weekday;
-    print("==> " + weekdayOfFirstDay.toString());
     int numberOfDaysPrevMonth = month == 1 ? 31 : dateUtility.daysInMonth(month - 1, year);
-    print("+++>" + numberOfDaysPrevMonth.toString());
     days.clear();
     setState(() {
       for(int i = 0; i < 42; i ++){
@@ -69,9 +64,6 @@ class _BusinessBookPageState extends State<BusinessBookPage> {
     });
 
     SetCalendar();
-
-
-//    for(int i = 0; i < 35; i ++) print(i.toString() + " | " + days[i].toString());
     super.initState();
   }
   @override
@@ -180,7 +172,7 @@ class _BusinessBookPageState extends State<BusinessBookPage> {
                                 for(int i = 0; i < datas.length; i ++){
                                   if(datas[i].name == null || datas[i].name == '') continue;
                                   List<String> split = datas[i].date.split('.');
-                                  booked[int.parse(split[1])] = true;
+                                  booked[int.parse(split[0])] = true;
                                 }
                               }
                               return Container(
@@ -349,7 +341,6 @@ class _BusinessBookPageState extends State<BusinessBookPage> {
       padding: EdgeInsets.only(top: sz.height * 0.01, bottom: sz.height * 0.01),
       child: GestureDetector(
         onTap: () async{
-          print(date.toString());
           if(booked) return;
           openMessageDialog(context, date);
 
@@ -408,7 +399,6 @@ class _BusinessBookPageState extends State<BusinessBookPage> {
                                   annotation: _annotationController.text,
                                   email: widget.user.email
                               );
-                              print(appoint.toString());
                               await firebaseController.insertAppoint(appoint);
                               Navigator.pop(c);
                             }catch(e){
@@ -427,9 +417,6 @@ class _BusinessBookPageState extends State<BusinessBookPage> {
     );
   }
 }
-
-
-
 
 Widget CircleBtnWithBorderColor({@required Widget child, Color bordercolor , double radius, Color fillcolor}){
   return Container(
