@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "124820181974",
+    "firebase_url": "https://zulassung-fabd5.firebaseio.com",
+    "project_id": "zulassung-fabd5",
+    "storage_bucket": "zulassung-fabd5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:124820181974:android:0b788a5926325f94864a77",
+        "android_client_info": {
+          "package_name": "com.zulassung.book"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "124820181974-5ov944vrk0ti4ujtk3lpkdkak3oemud4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQ1c7kftrO9ZcLQMvQTZTAPqJNfCjKK7k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "124820181974-5ov944vrk0ti4ujtk3lpkdkak3oemud4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
